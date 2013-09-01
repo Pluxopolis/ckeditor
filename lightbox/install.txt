@@ -1,0 +1,29 @@
+This plugin adds lightbox plus support to your image dialog. You have to upload 2 images. The normal image that you insert in your page with image dialog and a second one for the lightbox. The second image must have same name like the normal image and must stored in a subfolder named .box
+
+[b]Correct translation is needed![/b]
+
+
+[b]License[/b]
+
+Licensed under the terms of the [url=http://www.gnu.org/licenses/gpl.html]GPL[/url].
+
+
+[b]Download[/b]
+
+[url=http://]Lightbox plus for CKEditor[/url]
+
+
+[b]Installation[/b]
+
+1. Extract the archiv.
+2. Copy the "lightbox" pluginfolder to CKEditors "plugins" folder.
+3. Copy the "lightbox" rootfolder to a folder of your choice. (Sorry, same names)
+4. In the CKEditor configuration file (config.js) add the following code:
+
+[code]
+config.extraPlugins = 'lightbox';
+[/code]
+
+5. For using lightbox plus open lightbox_plus.js and set the path to lightbox folder to LightboxPlus_rootpath.
+6. Set lightbox_plus.js script to the header of your page.
+
