@@ -192,6 +192,7 @@ window.onbeforeunload = function(e) {
 		}
 		$s = preg_replace('/<input(\s+[^>]*)?>/i', '', $txt);
 		$s = preg_replace('/<textarea(\s+[^>]*)?>.*?<\/textarea(\s+[^>]*)?>/i', '', $s);
+		$s = preg_replace('/<(code|pre)(\b.*)<\/(code|pre)>/is', '', $s);
 		if(preg_match_all('/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', $s, $matches)) {
 			foreach($matches[0] as $k => $v) {
 				$string = ckeditor::encodeBin2Hex('document.write(\''.$matches[0][$k].'\')');
