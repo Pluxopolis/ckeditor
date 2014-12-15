@@ -184,7 +184,7 @@ window.onbeforeunload = function(e) {
 	 **/
 	public static function protectEmails($txt) {
 
-		if(preg_match_all('/<a.+href=[\'"]mailto:([\._a-zA-Z0-9-@]+)((\?.*)?)[\'"]>([\._a-zA-Z0-9-@]+)<\/a>/i', $txt, $matches)) {
+		if(preg_match_all('/<a.+href=[\'"]mailto:([\._a-zA-Z0-9-@]+)((\?.*)?)[\'"][^>]*>([\._a-zA-Z0-9-@]+)<\/a>/i', $txt, $matches)) {		
 			foreach($matches[0] as $k => $v) {
 				$string = ckeditor::encodeBin2Hex('document.write(\''.$matches[0][$k].'\')');
 				$txt = str_replace($matches[0][$k], '<script type="text/javascript">eval(unescape(\''.$string.'\'))</script>' , $txt);
