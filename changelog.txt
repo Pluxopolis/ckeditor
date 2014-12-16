@@ -1,7 +1,5 @@
 ## Version 4.4.6 (15/12/2014) ##
 version initiale
-[BUG] fix #2: Lien mailto + autres attributs
-[BUG] fix #1: Problème cryptage des emails avec les balises <code> et <pre>
 + CKEditor 4.4.6 http://ckeditor.com/
 + Roxyfileman 1.4.0 http://www.roxyfileman.com/
 + Justify Plugin 4.4.6 http://ckeditor.com/addon/justify (justify)

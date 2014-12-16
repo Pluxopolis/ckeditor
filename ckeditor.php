@@ -35,12 +35,6 @@ class ckeditor extends plxPlugin {
 			$this->addHook('AdminFootEndBody', 'AdminFootEndBody');
 		}
 
-		# si affichage des articles coté visiteurs: protection des emails contre le spam
-		if(!defined('PLX_ADMIN')) {
-			$this->addHook('plxMotorParseArticle', 'protectEmailsArticles');
-			$this->addHook('plxShowStaticContent', 'protectEmailsStatics');
-		}
-
 		# conversion des liens abs/rel dans les articles et les pages statiques
 		$this->addHook('plxAdminEditArticle', 'Abs2Rel');
 		$this->addHook('plxAdminEditStatique', 'Abs2Rel');
@@ -96,14 +90,6 @@ if(typeof CKEDITOR != 'undefined') {
 		});
 	}
 }
-<?php 
-		$static = $this->getParam('static')==1 ? '' : '|statique';
-
-if(preg_match('/(article'.$static.')/', basename($_SERVER['SCRIPT_NAME']))) : ?>
-window.onbeforeunload = function(e) {
-  return ' ';
-};
-<?php endif; ?>
 -->
 </script>
 <?php
@@ -157,78 +143,6 @@ window.onbeforeunload = function(e) {
 		}
 
 		?>';
-	}
-
-	/**
-	 * Méthode qui encode une chaine de caractère en hexadecimal
-	 *
-	 * @parm	s		chaine de caractères à encoder
-	 * @return	string	chane de caractères encodée en hexadecimal
-	 * @author	Stephane F
-	 **/
-	public static function encodeBin2Hex($s) {
-
-		$encode = '';
-		for ($i = 0; $i < strlen($s); $i++) {
-			$encode .= '%' . bin2hex($s[$i]);
-		}
-		return $encode;
-	}
-
-	/**
-	 * Méthode qui protège les adresses emails contre le spam
-	 *
-	 * @parm	txt		chaine de caractères à protéger
-	 * @return	string	chaine de caractères avec les adresses emails protégées
-	 * @author	Stephane F, Francis
-	 **/
-	public static function protectEmails($txt) {
-
-		if(preg_match_all('/<a.+href=[\'"]mailto:([\._a-zA-Z0-9-@]+)((\?.*)?)[\'"][^>]*>([\._a-zA-Z0-9-@]+)<\/a>/i', $txt, $matches)) {		
-			foreach($matches[0] as $k => $v) {
-				$string = ckeditor::encodeBin2Hex('document.write(\''.$matches[0][$k].'\')');
-				$txt = str_replace($matches[0][$k], '<script type="text/javascript">eval(unescape(\''.$string.'\'))</script>' , $txt);
-			}
-		}
-		$s = preg_replace('/<input(\s+[^>]*)?>/i', '', $txt);
-		$s = preg_replace('/<textarea(\s+[^>]*)?>.*?<\/textarea(\s+[^>]*)?>/i', '', $s);
-		$s = preg_replace('/<(code|pre)(\b.*)<\/(code|pre)>/is', '', $s);
-		if(preg_match_all('/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', $s, $matches)) {
-			foreach($matches[0] as $k => $v) {
-				$string = ckeditor::encodeBin2Hex('document.write(\''.$matches[0][$k].'\')');
-				$txt = str_replace($matches[0][$k], '<script type="text/javascript">eval(unescape(\''.$string.'\'))</script>' , $txt);
-			}
-		}
-		return $txt;
-	}
-
-	/**
-	 * Méthode qui protège les adresses emails contre le spam dans les articles
-	 *
-	 * @return	stdio
-	 * @author	Stephane F
-	 **/
-	public function protectEmailsArticles() {
-
-		echo '<?php
-			$art["chapo"] = ckeditor::protectEmails($art["chapo"]);
-			$art["content"] = ckeditor::protectEmails($art["content"]);
-		?>';
-
-	}
-
-	/**
-	 * Méthode qui protège les adresses emails contre le spam dans les pages statiques
-	 *
-	 * @return	stdio
-	 * @author	Stephane F
-	 **/
-	public function protectEmailsStatics() {
-
-		echo '<?php
-			$output = ckeditor::protectEmails($output);
-		?>';
-
 	}
 
 }
