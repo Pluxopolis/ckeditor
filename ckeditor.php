@@ -13,7 +13,7 @@ class ckeditor extends plxPlugin {
 	 *
 	 * @param	default_lang	langue par défaut utilisée par PluXml
 	 * @return	null
-	 * @authors	Stephane F - Francis
+	 * @authors	Stephane F
 	 **/
 	public function __construct($default_lang) {
 
