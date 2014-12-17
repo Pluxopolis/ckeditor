@@ -6,7 +6,7 @@ plxToken::validateFormToken($_POST);
 
 if(!empty($_POST)) {
 
-	$plxPlugin->setParam('folder', trim($_POST['folder']), 'string');
+	$plxPlugin->setParam('folder', trim(ltrim($_POST['folder'], '/')), 'string');
 	$plxPlugin->setParam('static', $_POST['static'], 'numeric');
 	$plxPlugin->setParam('extraPlugins', $_POST['extraPlugins'], 'cdata');
 	$plxPlugin->saveParams();
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
 		<?php plxUtils::printInput('folder',$plxPlugin->getParam('folder'),'text','40-255') ?>
 		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">&nbsp;</a>&nbsp;ex: data/images/
 		<p class="field"><label for="id_static"><?php echo $plxPlugin->lang('L_STATIC') ?></label></p>
-		<?php plxUtils::printSelect('static',array('1'=>L_YES,'0'=>L_NO), $plxPlugin->getParam('static'));?>	
+		<?php plxUtils::printSelect('static',array('1'=>L_YES,'0'=>L_NO), $plxPlugin->getParam('static'));?>
 		<p class="field"><label for="id_extraPlugins">extraPlugins&nbsp;:</label></p>
 		<?php plxUtils::printInput('extraPlugins',$plxPlugin->getParam('extraPlugins'),'text','40-255') ?>
 		<a class="help" title="<?php $plxPlugin->lang('L_COMMA') ?>">&nbsp;</a>&nbsp;

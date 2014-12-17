@@ -8,6 +8,8 @@
 
 class ckeditor extends plxPlugin {
 
+	public $valid_path = false;
+
 	/**
 	 * Constructeur de la classe ckeditor
 	 *
@@ -23,26 +25,51 @@ class ckeditor extends plxPlugin {
 		# droits pour accéder à la page config.php du plugin
 		$this->setConfigProfil(PROFIL_ADMIN);
 
-		# répertoire racine d'installation de PluXml sur le serveur
-		$dir = str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"]));
-		$this->racine = trim(preg_replace("/\/(core|plugins)\/(.*)/", "", $dir), "/")."/";
-		$this->racine = $this->racine[0]!="/" ? "/".$this->racine : $this->racine;
+		$this->addHook('AdminTopBottom', 'AdminTopBottom');
 
-		# déclaration pour ajouter l'éditeur
-		$static = $this->getParam('static')==1 ? '' : '|statique';
-		if(!preg_match('/(parametres_edittpl|comment'.$static.')/', basename($_SERVER['SCRIPT_NAME']))) {
-			$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
-			$this->addHook('AdminFootEndBody', 'AdminFootEndBody');
+		$this->valid_path = is_dir(PLX_ROOT.($this->getParam("folder")));
+		if($this->valid_path) {
+
+			# répertoire racine d'installation de PluXml sur le serveur
+			$dir = str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"]));
+			$this->racine = trim(preg_replace("/\/(core|plugins)\/(.*)/", "", $dir), "/")."/";
+			$this->racine = $this->racine[0]!="/" ? "/".$this->racine : $this->racine;
+
+			# déclaration pour ajouter l'éditeur
+			$static = $this->getParam('static')==1 ? '' : '|statique';
+			if(!preg_match('/(parametres_edittpl|comment'.$static.')/', basename($_SERVER['SCRIPT_NAME']))) {
+				$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
+				$this->addHook('AdminFootEndBody', 'AdminFootEndBody');
+			}
+
+			# conversion des liens abs/rel dans les articles et les pages statiques
+			$this->addHook('plxAdminEditArticle', 'Abs2Rel');
+			$this->addHook('plxAdminEditStatique', 'Abs2Rel');
+			# conversion des liens rel/abs dans les articles et les pages statiques
+			$this->addHook('AdminArticleTop', 'Rel2Abs');
+			$this->addHook('AdminStaticTop', 'Rel2Abs');
 		}
-
-		# conversion des liens abs/rel dans les articles et les pages statiques
-		$this->addHook('plxAdminEditArticle', 'Abs2Rel');
-		$this->addHook('plxAdminEditStatique', 'Abs2Rel');
-		# conversion des liens rel/abs dans les articles et les pages statiques
-		$this->addHook('AdminArticleTop', 'Rel2Abs');
-		$this->addHook('AdminStaticTop', 'Rel2Abs');
 	}
 
+	/**
+	 * Méthode qui affiche un message si le répertoire de stockage des fichiers n'est pas définit dans la config du plugin
+	 *
+	 * @return	stdio
+	 * @author	Stephane F
+	 **/
+	public function AdminTopBottom() {
+
+		$string = '
+		if($plxAdmin->plxPlugins->aPlugins["ckeditor"]->getParam("folder")=="") {
+			echo "<p class=\"warning\">Plugin ckEditor<br />'.$this->getLang("L_ERR_FOLDER_NOT_DEFINED").'</p>";
+			plxMsg::Display();
+		} elseif(!$plxAdmin->plxPlugins->aPlugins["ckeditor"]->valid_path) {
+			echo "<p class=\"warning\">Plugin ckEditor<br />'.$this->getLang("L_ERR_FOLDER_INVALID_DIR").'</p>";
+			plxMsg::Display();
+		}';
+		echo '<?php '.$string.' ?>';
+
+	}
 
 	/**
 	 * Méthode qui ajoute la déclaration du script javascript de ckeditor dans la partie <head>

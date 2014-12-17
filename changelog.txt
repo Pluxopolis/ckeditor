@@ -1,5 +1,6 @@
-## Version 4.4.6 (15/12/2014) ##
+## Version 4.4.6 (17/12/2014) ##
 version initiale
+
 + CKEditor 4.4.6 http://ckeditor.com/
 + Roxyfileman 1.4.0 http://www.roxyfileman.com/
 + Justify Plugin 4.4.6 http://ckeditor.com/addon/justify (justify)
@@ -7,7 +8,9 @@ version initiale
 + oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
   + Widget Plugin 4.4.6 http://ckeditor.com/addon/widget (widget)
   + Line Utilities 4.4.6 http://ckeditor.com/addon/lineutils (lineutils)
+  
 fileman/system.inc.php : comment line with error_reporting(E_NONE);
+
 responsive images : add to /themes/defaut/style.css
 img {
   height: auto !important;
