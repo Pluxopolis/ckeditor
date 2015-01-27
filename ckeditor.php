@@ -138,7 +138,7 @@ if(typeof CKEDITOR != 'undefined') {
 		$rel_path_images = "'.$this->getParam('folder').'";
 
 		# Les liens absolus commençant par http://www.domaine.com/ sont convertis en liens relatifs
-		if(isset($chapo)) {
+		if(isset($content["chapo"])) {
 			$content["chapo"] = str_replace($abs_path_images, $rel_path_images, $content["chapo"]);
 		}
 		$content["content"] = str_replace($abs_path_images, $rel_path_images, $content["content"]);

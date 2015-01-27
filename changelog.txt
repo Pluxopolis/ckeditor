@@ -1,3 +1,6 @@
+## Version 4.4.6.1 (27/01/2015) ##
+BUG: pas d'affichage des images dans le chapo
+
 ## Version 4.4.6 (17/12/2014) ##
 version initiale
 
