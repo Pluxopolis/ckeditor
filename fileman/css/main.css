@@ -75,7 +75,7 @@ ul{
 }
 #txtSearch{
   padding:0 22px 0 3px;
-  background:url(../images/search.png) no-repeat 87px center;
+  background:url(../images/sprite.png) no-repeat 87px -314px;
   width:80px;
   height:20px;
 }
@@ -152,21 +152,28 @@ hr{margin:0;color:#AAA;}
   margin-bottom: 3px;
 }
 .actions input[type=button]:hover,.actions input.selected{background-color: #DFD;cursor:pointer;}
-#btnAddDir, #mnuCreateDir{background-image:url(../images/folder-add.png);}
-#mnuDownloadDir{background-image:url(../images/folder-download.png);}
-#btnDeleteDir,#mnuDeleteDir{background-image:url(../images/folder-delete.png);}
-#btnAddFile{background-image:url(../images/file-add.png);}
-#btnDeleteFile,#mnuDeleteFile{background-image:url(../images/file-delete.png);}
+#btnAddDir{background-image:url(../images/sprite.png);background-position: 4px -213px;}
+#mnuCreateDir{background-image:url(../images/sprite.png);background-position: 4px -210px;}
+#mnuDownloadDir{background-image:url(../images/sprite.png);background-position: 4px 7px;}
+#btnDeleteDir{background-image:url(../images/sprite.png);background-position: 4px -237px;}
+#mnuDeleteDir{background-image:url(../images/sprite.png);background-position: 4px -235px;}
+#btnAddFile{background-image:url(../images/sprite.png);background-position: 4px -81px;}
+#btnDeleteFile{background-image:url(../images/sprite.png);background-position: 4px -104px;}
+#mnuDeleteFile{background-image:url(../images/sprite.png);background-position: 4px -102px;}
 #btnDeleteFile{margin-right:15px;}
-#btnDownloadFile,#mnuDownload{background-image:url(../images/file-download.png);}
-#btnPreviewFile,#mnuPreview{background-image:url(../images/preview.png);}
-#btnSelectFile,#mnuSelectFile{background-image:url(../images/select.png);}
-#btnThumbView{background-image:url(../images/view-tile.png);background-position: center center;}
-#btnListView{background-image:url(../images/view-list.png);background-position: center center;}
-#btnRenameFile,#btnRenameDir,#mnuRenameDir,#mnuRenameFile{background-image:url(../images/rename.png);}
-#mnuDirCut,#mnuFileCut{background-image:url(../images/cut.png);}
-#mnuDirCopy,#mnuFileCopy{background-image:url(../images/copy.png);}
-#mnuDirPaste,#mnuFilePaste{background-image:url(../images/paste.png);}
+#btnDownloadFile{background-image:url(../images/sprite.png);background-position: 4px -128px;}
+#mnuDownload{background-image:url(../images/sprite.png);background-position: 4px -126px;}
+#btnPreviewFile{background-image:url(../images/sprite.png);background-position: 4px -285px;}
+#mnuPreview{background-image:url(../images/sprite.png);background-position: 4px -283px;}
+#btnSelectFile{background-image:url(../images/sprite.png);background-position: 4px -399px;}
+#mnuSelectFile{background-image:url(../images/sprite.png);background-position: 4px -397px;}
+#btnThumbView{background-image:url(../images/sprite.png);background-position: center -447px;}
+#btnListView{background-image:url(../images/sprite.png);background-position: center -483px;}
+#btnRenameFile,#btnRenameDir{background-image:url(../images/sprite.png);background-position: 4px 4px;}
+#mnuRenameDir,#mnuRenameFile{background-image:url(../images/sprite.png);background-position: 4px 7px;}
+#mnuDirCut,#mnuFileCut{background-image:url(../images/sprite.png);background-position: 4px -47px;}
+#mnuDirCopy,#mnuFileCopy{background-image:url(../images/sprite.png);background-position: 4px -20px;}
+#mnuDirPaste,#mnuFilePaste{background-image:url(../images/sprite.png);background-position: 4px -370px;}
 
 /* END OF Buttons */
 /* File list views */
@@ -290,7 +297,7 @@ div.ui-tooltip {
 }
 .uploadError .stripes,.uploadComplete .stripes{display:none;}
 .removeUpload{
-  background:url(../images/remove-upload.png) no-repeat center;
+  background:url(../images/sprite.png) no-repeat 6px -421px;
   position:absolute;
   right:0;
   top:0;

@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
   RoxyFileman - web based file manager. Ready to use with CKEditor, TinyMCE. 
   Can be easily integrated with any other WYSIWYG editor or CMS.
@@ -78,7 +77,7 @@ function verifyPath($path){
 function fixPath($path){
   $path = $_SERVER['DOCUMENT_ROOT'].'/'.$path;
   $path = str_replace('\\', '/', $path);
-  $path = str_replace('//', '/', $path);
+  $path = RoxyFile::FixPath($path);
   return $path;
 }
 function gerResultStr($type, $str = ''){
@@ -94,7 +93,10 @@ function getFilesPath(){
   $ret = (isset($_SESSION[SESSION_PATH_KEY]) && $_SESSION[SESSION_PATH_KEY] != ''?$_SESSION[SESSION_PATH_KEY]:FILES_ROOT);
   if(!$ret){
     $ret = RoxyFile::FixPath(BASE_PATH.'/Uploads');
-    $ret = str_replace(RoxyFile::FixPath($_SERVER['DOCUMENT_ROOT']), '', $ret);
+    $tmp = $_SERVER['DOCUMENT_ROOT'];
+    if(mb_substr($tmp, -1) == '/' || mb_substr($tmp, -1) == '\\')
+      $tmp = mb_substr($tmp, 0, -1);
+    $ret = str_replace(RoxyFile::FixPath($tmp), '', $ret);
   }
   return $ret;
 }
@@ -254,7 +256,7 @@ class RoxyFile{
     if(mb_strlen($name) > 32)
       $name = mb_substr($name, 0, 32);
     $str = str_replace('.php', '', $str);
-    $str = mb_ereg_replace("[^ a-zA-Z\\_\\d\\.]|\\s", $sep, $name);
+    $str = mb_ereg_replace("[^\\w]", $sep, $name);
     
     $str = mb_ereg_replace("$sep+", $sep, $str).($ext?'.'.$ext:'');
 

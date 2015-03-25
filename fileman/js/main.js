@@ -127,8 +127,13 @@ function showUploadList(files){
     $('#btnUpload').button('disable');
 }
 function listUploadFiles(files){
-  uploadFileList = new Array();
-  addUploadFiles(files);
+  if(!window.FileList) {
+    $('#btnUpload').button('enable');
+  }
+  else if(files.length > 0) {
+    uploadFileList = new Array();
+    addUploadFiles(files);
+  }
 }
 function addUploadFiles(files){
   for(i = 0; i < files.length; i++)
@@ -696,6 +701,15 @@ function getPreselectedFile(){
       break;
     }
   }
+  if(RoxyFilemanConf.RETURN_URL_PREFIX){
+    var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
+    if(filePath.indexOf(prefix) == 0){
+      if(prefix.substr(-1) == '/')
+        prefix = prefix.substr(0, prefix.length - 1);
+      filePath = filePath.substr(prefix.length);
+    }
+  }
+  
   return filePath;
 }
 function initSelection(filePath){
@@ -748,9 +762,6 @@ $(function(){
   $(".actions input").tooltip({track: true});
   $( window ).resize(ResizeLists);
   
-  if(getFilemanIntegration() == 'tinymce3'){
-    $('body').append('<script src="js/tiny_mce_popup.js"><\/script>');
-  }
   document.oncontextmenu = function() {return false;};
   removeDisabledActions();
   $('#copyYear').html(new Date().getFullYear());
@@ -773,6 +784,13 @@ $(function(){
       dropFiles(e, true);
     };
   }
+  
+  if(getFilemanIntegration() == 'tinymce3'){
+    try {
+      $('body').append('<script src="js/tiny_mce_popup.js"><\/script>');
+    }
+    catch(ex){}
+  }
 });
 function getFilemanIntegration(){
   var integration = RoxyUtils.GetUrlParam('integration');
@@ -787,32 +805,38 @@ function setFile(){
     alert(t('E_NoFileSelected'));
     return;
   }
+  var insertPath = f.fullPath;
+  if(RoxyFilemanConf.RETURN_URL_PREFIX){
+    var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
+    if(prefix.substr(-1) == '/')
+      prefix = prefix.substr(0, prefix.length - 1);
+    insertPath = prefix + (insertPath.substr(0, 1) != '/'? '/': '') + insertPath;
+  }
   switch(getFilemanIntegration()){
       case 'ckeditor':
-      window.opener.CKEDITOR.tools.callFunction(RoxyUtils.GetUrlParam('CKEditorFuncNum'), f.fullPath);
+      window.opener.CKEDITOR.tools.callFunction(RoxyUtils.GetUrlParam('CKEditorFuncNum'), insertPath);
       self.close();
     break;
     case 'tinymce3':
-      var URL = f.fullPath;
       var win = tinyMCEPopup.getWindowArg("window");
-      win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
+      win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = insertPath;
       if (typeof(win.ImageDialog) != "undefined") {
           if (win.ImageDialog.getImageData)
               win.ImageDialog.getImageData();
 
           if (win.ImageDialog.showPreviewImage)
-              win.ImageDialog.showPreviewImage(URL);
+              win.ImageDialog.showPreviewImage(insertPath);
       }
       tinyMCEPopup.close();
     break;
     case 'tinymce4':
       var win = (window.opener?window.opener:window.parent);
-      win.document.getElementById(RoxyUtils.GetUrlParam('input')).value = f.fullPath;
+      win.document.getElementById(RoxyUtils.GetUrlParam('input')).value = insertPath;
       if (typeof(win.ImageDialog) != "undefined") {
           if (win.ImageDialog.getImageData)
               win.ImageDialog.getImageData();
           if (win.ImageDialog.showPreviewImage)
-              win.ImageDialog.showPreviewImage(f.fullPath);
+              win.ImageDialog.showPreviewImage(insertPath);
       }
       win.tinyMCE.activeEditor.windowManager.close();
     break;
