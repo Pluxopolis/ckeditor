@@ -1,4 +1,4 @@
-## Version 4.4.7 (27/01/2015) ##
+## Version 4.4.7 (25/03/2015) ##
 + Configuration de la hauteur de ckeditor à partir de l'écran de configuration du plugin
 + CKEditor 4.4.7 http://ckeditor.com/
 + Roxyfileman 1.4.3 http://www.roxyfileman.com/
