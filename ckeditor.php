@@ -85,7 +85,7 @@ class ckeditor extends plxPlugin {
 			$_SESSION['FILEMAN_FILES_ROOT'] .= "/".$_SESSION['user'];
 		}
 
-		echo '<script type="text/javascript" src="'.PLX_PLUGINS.'ckeditor/ckeditor/ckeditor.js"></script>'."\n";
+		echo '<script src="'.PLX_PLUGINS.'ckeditor/ckeditor/ckeditor.js"></script>'."\n";
 	}
 
 	/**
@@ -99,6 +99,8 @@ class ckeditor extends plxPlugin {
 		$extra = trim($this->getParam('extraPlugins'));
 		$extraPlugins = ($extra !='' ? ','.$extra : '');
 		$extraPlugins = str_replace(' ', '', $extraPlugins);
+		$height = trim($this->getParam('height'));
+		if($height!='') $height = 'height:'.(is_numeric($height) ? $height : '"'.$height.'"').',';
 
 ?>
 <script>
@@ -109,6 +111,7 @@ if(typeof CKEDITOR != 'undefined') {
 	for(var i=0;i<textareas.length;i++) {
 		CKEDITOR.replace('id_'+textareas[i].name, {
 			extraPlugins: 'justify,showblocks,widget,lineutils,oembed<?php echo $extraPlugins ?>',
+			<?php echo $height ?>
 			scayt_autoStartup: true,
 			extraAllowedContent: 'video[*]{*}',
 			filebrowserBrowseUrl: roxyFileman,

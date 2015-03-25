@@ -1,3 +1,17 @@
+## Version 4.4.7 (27/01/2015) ##
++ Configuration de la hauteur de ckeditor à partir de l'écran de configuration du plugin
++ CKEditor 4.4.7 http://ckeditor.com/
++ Roxyfileman 1.4.3 http://www.roxyfileman.com/
++ Justify Plugin 4.4.7 http://ckeditor.com/addon/justify (justify)
++ Show Blocks 4.4.7 http://ckeditor.com/addon/showblocks (showblocks)
++ oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
+  + Widget Plugin 4.4.7 http://ckeditor.com/addon/widget (widget)
+  + Line Utilities 4.4.7 http://ckeditor.com/addon/lineutils (lineutils)
+
+== Modifications reportées ==
+fichier: fileman/conf.json
+"SESSION_PATH_KEY":    "FILEMAN_FILES_ROOT", 
+  
 ## Version 4.4.6.1 (27/01/2015) ##
 BUG: pas d'affichage des images dans le chapo
 
