@@ -7,10 +7,13 @@
 + oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
   + Widget Plugin 4.4.7 http://ckeditor.com/addon/widget (widget)
   + Line Utilities 4.4.7 http://ckeditor.com/addon/lineutils (lineutils)
-
+[BUG] fix #3: Plugin oEmbed fichier jquery.oembed.min.js https://github.com/nfl/jquery-oembed-all
+  
 == Modifications reportées ==
 fichier: fileman/conf.json
-"SESSION_PATH_KEY":    "FILEMAN_FILES_ROOT", 
+"SESSION_PATH_KEY": "FILEMAN_FILES_ROOT", 
+  
+fichier: ckeditor/plugins/oembed/libs/jquery.oembed.min.js récupéré sur https://github.com/nfl/jquery-oembed-all 
   
 ## Version 4.4.6.1 (27/01/2015) ##
 BUG: pas d'affichage des images dans le chapo
