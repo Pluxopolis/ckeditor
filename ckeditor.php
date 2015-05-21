@@ -116,7 +116,9 @@ if(typeof CKEDITOR != 'undefined') {
 			extraAllowedContent: 'video[*]{*}',
 			filebrowserBrowseUrl: roxyFileman,
 			filebrowserImageBrowseUrl: roxyFileman+'&type=image',
-			removeDialogTabs: 'link:upload;image:upload'
+			removeDialogTabs: 'link:upload;image:upload',
+			entities: false,
+			allowedContent: true
 		});
 	}
 }
