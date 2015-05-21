@@ -15,19 +15,32 @@ if(!empty($_POST)) {
 	exit;
 }
 ?>
-<form id="form_ckeditor" action="parametres_plugin.php?p=ckeditor" method="post">
+<style>
+form.inline-form label {
+	width: 300px ;
+}
+</style>
+<form class="inline-form" id="form_ckeditor" action="parametres_plugin.php?p=ckeditor" method="post">
 	<fieldset>
-		<p><label for="id_folder"><?php echo $plxPlugin->lang('L_FOLDER') ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('folder',$plxPlugin->getParam('folder'),'text','40-255') ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">&nbsp;</a>&nbsp;ex: data/medias/
-		<p class="field"><label for="id_static"><?php echo $plxPlugin->lang('L_STATIC') ?>&nbsp;:</label></p>
-		<?php plxUtils::printSelect('static',array('1'=>L_YES,'0'=>L_NO), $plxPlugin->getParam('static'));?>
-		<p class="field"><label for="id_height"><?php echo $plxPlugin->lang('L_EDITOR_HEIGHT') ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('height',$plxPlugin->getParam('height'),'text','7-7') ?>
-		<p class="field"><label for="id_extraPlugins">extraPlugins&nbsp;:</label></p>
-		<?php plxUtils::printInput('extraPlugins',$plxPlugin->getParam('extraPlugins'),'text','40-255') ?>
-		<a class="help" title="<?php $plxPlugin->lang('L_COMMA') ?>">&nbsp;</a>&nbsp;
-		<a href="http://ckeditor.com/addons/plugins/all" title="extraPlugins">http://ckeditor.com/addons/plugins/all</a>
+		<p>
+			<label for="id_folder"><?php echo $plxPlugin->lang('L_FOLDER') ?>&nbsp;:</label>
+			<?php plxUtils::printInput('folder',$plxPlugin->getParam('folder'),'text','40-255') ?>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>&nbsp;ex: data/medias/
+		</p>
+		<p>
+			<label for="id_static"><?php echo $plxPlugin->lang('L_STATIC') ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('static',array('1'=>L_YES,'0'=>L_NO), $plxPlugin->getParam('static'));?>
+		</p>
+		<p>
+			<label for="id_height"><?php echo $plxPlugin->lang('L_EDITOR_HEIGHT') ?>&nbsp;:</label>
+			<?php plxUtils::printInput('height',$plxPlugin->getParam('height'),'text','7-7') ?>
+		</p>
+		<p>
+			<label for="id_extraPlugins">extraPlugins&nbsp;:</label>
+			<?php plxUtils::printInput('extraPlugins',$plxPlugin->getParam('extraPlugins'),'text','40-255') ?>
+			<a class="hint"><span><?php $plxPlugin->lang('L_COMMA') ?></span></a>&nbsp;
+			<a href="http://ckeditor.com/addons/plugins/all" title="extraPlugins">http://ckeditor.com/addons/plugins/all</a>
+		</p>
 		<p class="in-action-bar">
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_SAVE') ?>" />
