@@ -1,5 +1,6 @@
 ## Version 4.4.7.1 (13/05/2015) ##
 + Compatibilité PluXml 5.4
+[BUG] Sécurité: appel direct du fichier index.html avec actions possibles sans être connecté à l'administration de PluXml (contribution mathieu)
 
 ## Version 4.4.7 (25/03/2015) ##
 + Configuration de la hauteur de ckeditor à partir de l'écran de configuration du plugin
@@ -11,12 +12,6 @@
   + Widget Plugin 4.4.7 http://ckeditor.com/addon/widget (widget)
   + Line Utilities 4.4.7 http://ckeditor.com/addon/lineutils (lineutils)
 [BUG] fix #3: Plugin oEmbed fichier jquery.oembed.min.js https://github.com/nfl/jquery-oembed-all
-  
-== Modifications reportées ==
-fichier: fileman/conf.json
-"SESSION_PATH_KEY": "FILEMAN_FILES_ROOT", 
-  
-fichier: ckeditor/plugins/oembed/libs/jquery.oembed.min.js récupéré sur https://github.com/nfl/jquery-oembed-all 
   
 ## Version 4.4.6.1 (27/01/2015) ##
 BUG: pas d'affichage des images dans le chapo
@@ -31,10 +26,45 @@ version initiale
 + oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
   + Widget Plugin 4.4.6 http://ckeditor.com/addon/widget (widget)
   + Line Utilities 4.4.6 http://ckeditor.com/addon/lineutils (lineutils)
+
+/==========================/
+/ Modifications à reporter /
+/==========================/
+
+1==
+
+file: fileman/conf.json
+"SESSION_PATH_KEY": "FILEMAN_FILES_ROOT", 
+
+2==
   
-fileman/system.inc.php : comment line with error_reporting(E_NONE);
+file: ckeditor/plugins/oembed/libs/jquery.oembed.min.js récupéré sur https://github.com/nfl/jquery-oembed-all 
+
+3==
+  
+file: fileman/system.inc.php : comment line with error_reporting(E_NONE);
+
+4==
+
+file: fileman/php/security.inc.php : 
+to prevent hole security by direct url calling, replace function checkAccess() by this following
+
+function checkAccess($action){
+	if(!session_id())
+		session_start();
+	
+	# patch PluXml: 5 lines added #
+	foreach (array("user", "domain", SESSION_PATH_KEY) as $v) {
+		if(!isset($_SESSION[$v]) OR (""===$_SESSION[$v])) {
+			die();
+		}
+	}	
+}
+
+5==
 
 responsive images : add to /themes/defaut/style.css
+
 img {
   height: auto !important;
   max-width: 100% !important;
