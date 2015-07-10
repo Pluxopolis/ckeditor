@@ -1,5 +1,6 @@
 ## Version 4.4.7.1 (13/05/2015) ##
 + Compatibilité PluXml 5.4
+[BUG] Perte de images dans l'éditeur avec la création d'une nouvelle catégorie sur la page de rédaction d'un article
 [BUG] Sécurité: appel direct du fichier index.html avec actions possibles sans être connecté à l'administration de PluXml (contribution mathieu)
 
 ## Version 4.4.7 (25/03/2015) ##

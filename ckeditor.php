@@ -42,12 +42,14 @@ class ckeditor extends plxPlugin {
 				$this->addHook('AdminFootEndBody', 'AdminFootEndBody');
 			}
 
-			# conversion des liens abs/rel dans les articles et les pages statiques
-			$this->addHook('plxAdminEditArticle', 'Abs2Rel');
-			$this->addHook('plxAdminEditStatique', 'Abs2Rel');
-			# conversion des liens rel/abs dans les articles et les pages statiques
-			$this->addHook('AdminArticleTop', 'Rel2Abs');
-			$this->addHook('AdminStaticTop', 'Rel2Abs');
+			if(!isset($_POST['new_category'])) {
+				# conversion des liens abs/rel dans les articles et les pages statiques
+				$this->addHook('plxAdminEditArticle', 'Abs2Rel');
+				$this->addHook('plxAdminEditStatique', 'Abs2Rel');
+				# conversion des liens rel/abs dans les articles et les pages statiques
+				$this->addHook('AdminArticleTop', 'Rel2Abs');
+				$this->addHook('AdminStaticTop', 'Rel2Abs');
+			}
 		}
 	}
 
