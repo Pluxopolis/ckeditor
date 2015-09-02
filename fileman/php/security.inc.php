@@ -24,11 +24,9 @@ function checkAccess($action){
 	if(!session_id())
 		session_start();
 	
-	# patch PluXml: 5 lines added #
-	foreach (array("user", "domain", SESSION_PATH_KEY) as $v) {
-		if(!isset($_SESSION[$v]) OR (""===$_SESSION[$v])) {
-			die();
-		}
+	# patch PluXml: 3 lines added #
+	if(!isset($_SESSION['user']) OR (""===$_SESSION['user'])) {
+		die();
 	}	
 }
 ?>
