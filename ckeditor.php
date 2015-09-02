@@ -111,17 +111,20 @@ if(typeof CKEDITOR != 'undefined') {
 	var roxyFileman = '<?php echo PLX_PLUGINS ?>ckeditor/fileman/index.html?integration=ckeditor';
 	var textareas = document.getElementsByTagName("textarea");
 	for(var i=0;i<textareas.length;i++) {
-		CKEDITOR.replace('id_'+textareas[i].name, {
-			extraPlugins: 'justify,showblocks,widget,lineutils,oembed<?php echo $extraPlugins ?>',
-			<?php echo $height ?>
-			scayt_autoStartup: true,
-			extraAllowedContent: 'video[*]{*}',
-			filebrowserBrowseUrl: roxyFileman,
-			filebrowserImageBrowseUrl: roxyFileman+'&type=image',
-			removeDialogTabs: 'link:upload;image:upload',
-			entities: false,
-			allowedContent: true
-		});
+		var n = textareas[i].name;
+		if(n=="content" || n=="chapo") {
+			CKEDITOR.replace('id_'+n, {
+				extraPlugins: 'justify,showblocks,widget,lineutils,oembed<?php echo $extraPlugins ?>',
+				<?php echo $height ?>
+				scayt_autoStartup: true,
+				extraAllowedContent: 'video[*]{*}',
+				filebrowserBrowseUrl: roxyFileman,
+				filebrowserImageBrowseUrl: roxyFileman+'&type=image',
+				removeDialogTabs: 'link:upload;image:upload',
+				entities: false,
+				allowedContent: true
+			});
+		}
 	}
 }
 -->
