@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -14,7 +14,7 @@
 
 	CKEDITOR.plugins.add( 'widget', {
 		// jscs:disable maximumLineLength
-		lang: 'af,ar,bg,ca,cs,cy,da,de,el,en,en-gb,eo,es,fa,fi,fr,gl,he,hr,hu,it,ja,km,ko,ku,lv,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		lang: 'af,ar,bg,ca,cs,cy,da,de,de-ch,el,en,en-gb,eo,es,eu,fa,fi,fr,gl,he,hr,hu,id,it,ja,km,ko,ku,lv,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
 		// jscs:enable maximumLineLength
 		requires: 'lineutils,clipboard',
 		onLoad: function() {
@@ -2372,10 +2372,17 @@
 		editor.on( 'drop', function( evt ) {
 			var dataTransfer = evt.data.dataTransfer,
 				id = dataTransfer.getData( 'cke/widget-id' ),
+				transferType = dataTransfer.getTransferType( editor ),
 				dragRange = editor.createRange(),
 				sourceWidget;
 
-			if ( id === '' || dataTransfer.getTransferType( editor ) != CKEDITOR.DATA_TRANSFER_INTERNAL ) {
+			// Disable cross-editor drag & drop for widgets - #13599.
+			if ( id !== '' && transferType === CKEDITOR.DATA_TRANSFER_CROSS_EDITORS ) {
+				evt.cancel();
+				return;
+			}
+
+			if ( id === '' || transferType != CKEDITOR.DATA_TRANSFER_INTERNAL ) {
 				return;
 			}
 
@@ -2489,6 +2496,12 @@
 					// Block widgets are handled by Lineutils.
 					if ( widget.inline && target.type == CKEDITOR.NODE_ELEMENT && target.hasAttribute( 'data-cke-widget-drag-handler' ) ) {
 						mouseDownOnDragHandler = 1;
+
+						// When drag handler is pressed we have to clear current selection if it wasn't already on this widget.
+						// Otherwise, the selection may be in a fillingChar, which prevents dragging a widget. (#13284, see comment 8 and 9.)
+						if ( widgetsRepo.focused != widget )
+							editor.getSelection().removeAllRanges();
+
 						return;
 					}
 
@@ -3099,6 +3112,29 @@
 		} );
 	}
 
+	// Add a listener to data event that will set/change widget's label (#14539).
+	function setupA11yListener( widget ) {
+		// Note, the function gets executed in a context of widget instance.
+		function getLabelDefault() {
+			return this.editor.lang.widget.label.replace( /%1/, this.pathName || this.element.getName() );
+		}
+
+		// Setting a listener on data is enough, there's no need to perform it on widget initialization, as
+		// setupWidgetData fires this event anyway.
+		widget.on( 'data', function() {
+			// In some cases widget might get destroyed in an earlier data listener. For instance, image2 plugin, does
+			// so when changing its internal state.
+			if ( !widget.wrapper ) {
+				return;
+			}
+
+			var label = this.getLabel ? this.getLabel() : getLabelDefault.call( this );
+
+			widget.wrapper.setAttribute( 'role', 'region' );
+			widget.wrapper.setAttribute( 'aria-label', label );
+		}, null, null, 9999 );
+	}
+
 	function setupDragHandler( widget ) {
 		if ( !widget.draggable )
 			return;
@@ -3126,7 +3162,8 @@
 				src: CKEDITOR.tools.transparentImageData,
 				width: DRAG_HANDLER_SIZE,
 				title: editor.lang.widget.move,
-				height: DRAG_HANDLER_SIZE
+				height: DRAG_HANDLER_SIZE,
+				role: 'presentation'
 			} );
 			widget.inline && img.setAttribute( 'draggable', 'true' );
 
@@ -3168,7 +3205,9 @@
 			editor = this.editor,
 			editable = editor.editable(),
 			listeners = [],
-			sorted = [];
+			sorted = [],
+			locations,
+			y;
 
 		// Mark dragged widget for repository#finder.
 		this.repository._.draggedWidget = this;
@@ -3187,9 +3226,7 @@
 					liner.placeLine( sorted[ 0 ] );
 					liner.cleanup();
 				}
-			} ),
-
-			locations, y;
+			} );
 
 		// Let's have the "dragging cursor" over entire editable.
 		editable.addClass( 'cke_widget_dragging' );
@@ -3318,6 +3355,7 @@
 		setupMask( widget );
 		setupDragHandler( widget );
 		setupDataClassesListener( widget );
+		setupA11yListener( widget );
 
 		// #11145: [IE8] Non-editable content of widget is draggable.
 		if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 ) {
@@ -3816,7 +3854,17 @@
  */
 
 /**
- * Widget name displayed in elements path.
+ * The function used to obtain an accessibility label for the widget. It might be used to make
+ * the widget labels as precise as possible, since it has access to the widget instance.
+ *
+ * If not specified, the default implementation will use the {@link #pathName} or the main {@link #element}
+ * tag name.
+ *
+ * @property {Function} getLabel
+ */
+
+/**
+ * The widget name displayed in the elements path.
  *
  * @property {String} pathName
  */

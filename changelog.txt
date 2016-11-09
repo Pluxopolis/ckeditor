@@ -1,12 +1,22 @@
+## Version 4.5.11 (09/11/2016) ##
+[+] Mise à jour ckeditor 4.5.11
+[+] Mise à jour des plugins de ckeditor
+		Roxyfileman 1.4.5 http://www.roxyfileman.com/
+		Justify Plugin 4.5.11 http://ckeditor.com/addon/justify (justify)
+		Show Blocks 4.5.11 http://ckeditor.com/addon/showblocks (showblocks)
+		oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
+		Widget Plugin 4.5.11 http://ckeditor.com/addon/widget (widget)
+		Line Utilities 4.5.11 http://ckeditor.com/addon/lineutils (lineutils)
+
 ## Version 4.5.3 (02/09/2015) ##
 [+] Mise à jour ckeditor 4.5.3
 [+] Mise à jour des plugins de ckeditor
 		Roxyfileman 1.4.3 http://www.roxyfileman.com/
 		Justify Plugin 4.5.3 http://ckeditor.com/addon/justify (justify)
-			Show Blocks 4.5.3 http://ckeditor.com/addon/showblocks (showblocks)
-			oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
-				Widget Plugin 4.5.3 http://ckeditor.com/addon/widget (widget)
-				Line Utilities 45.3 http://ckeditor.com/addon/lineutils (lineutils)
+		Show Blocks 4.5.3 http://ckeditor.com/addon/showblocks (showblocks)
+		oEmbed Plugin 1.1.7 http://ckeditor.com/addon/oembed (oembed)
+		Widget Plugin 4.5.3 http://ckeditor.com/addon/widget (widget)
+		Line Utilities 4.5.3 http://ckeditor.com/addon/lineutils (lineutils)
 [+]	Restriction de l'application de ckeditor aux textareas avec les id "id_content" ou "id_chapo" uniquement
 [BUG] SESSION_PATH_KEY non renseigné sur certains hébergeurs
 

@@ -23,7 +23,7 @@
 function checkAccess($action){
 	if(!session_id())
 		session_start();
-	
+
 	# patch PluXml: 3 lines added #
 	if(!isset($_SESSION['user']) OR (""===$_SESSION['user'])) {
 		die();

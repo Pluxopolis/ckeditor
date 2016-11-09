@@ -20,7 +20,7 @@
 
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
 */
-error_reporting(0);
+//error_reporting(0);
 ini_set('display_errors', 'off');
 // You DON'T have to make any changes to this file. For Roxy Fileman user configuration see conf.json file.
 define('BASE_PATH', dirname (__FILE__));
