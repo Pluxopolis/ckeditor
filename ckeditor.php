@@ -123,7 +123,8 @@ if(typeof CKEDITOR != 'undefined') {
 				filebrowserImageBrowseUrl: roxyFileman+'&type=image',
 				removeDialogTabs: 'link:upload;image:upload',
 				entities: false,
-				allowedContent: true
+				allowedContent: true,
+				language : '<?php echo $this->default_lang ?>'
 			});
 		}
 	}
