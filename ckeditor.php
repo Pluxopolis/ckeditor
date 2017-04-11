@@ -88,6 +88,7 @@ class ckeditor extends plxPlugin {
 		}
 
 		echo '<script src="'.PLX_PLUGINS.'ckeditor/ckeditor/ckeditor.js"></script>'."\n";
+		echo "<style>.cke_dialog_contents tr:hover { background-color: #fff; }</style>\n";
 	}
 
 	/**
@@ -114,7 +115,7 @@ if(typeof CKEDITOR != 'undefined') {
 		var n = textareas[i].name;
 		if(n=="content" || n=="chapo") {
 			CKEDITOR.replace('id_'+n, {
-				extraPlugins: 'justify,showblocks,widget,lineutils,oembed<?php echo $extraPlugins ?>',
+				extraPlugins: 'justify,showblocks,embed,embedbase,lineutils,widgetselection,widget,notification,notificationaggregator,toolbar<?php echo $extraPlugins ?>',
 				<?php echo $height ?>
 				scayt_autoStartup: true,
 				extraAllowedContent: 'video[*]{*}',

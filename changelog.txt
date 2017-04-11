@@ -1,3 +1,8 @@
+## Version 4.6.2 (11/04/2017) ##
+[+] Mise à jour ckeditor 4.6.2
+[+] Remplacement du plugin Media (oEmbed) par le plugin officiel Media Embed (embed)
+[+] Mise à jour 4.6.2 et ajout dépendances : justify,showblocks,embed,embedbase,lineutils,widgetselection,widget,notification,notificationaggregator,toolbar
+
 ## Version 4.5.11 (09/11/2016) ##
 [+] Mise à jour ckeditor 4.5.11
 [+] Mise à jour des plugins de ckeditor
