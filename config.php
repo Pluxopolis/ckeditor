@@ -1,5 +1,4 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-<?php
+<?php if(!defined('PLX_ROOT')) exit;
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -11,7 +10,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('extraPlugins', $_POST['extraPlugins'], 'cdata');
 	$plxPlugin->setParam('height', $_POST['height'], 'string');
 	$plxPlugin->saveParams();
-	header('Location: parametres_plugin.php?p=ckeditor');
+	header('Location: parametres_plugin.php?p='.get_class($plxPlugin));
 	exit;
 }
 ?>
@@ -20,7 +19,7 @@ form.inline-form label {
 	width: 300px ;
 }
 </style>
-<form class="inline-form" id="form_ckeditor" action="parametres_plugin.php?p=ckeditor" method="post">
+<form class="inline-form" id="form_<?php echo get_class($plxPlugin); ?>" action="parametres_plugin.php?p=<?php echo get_class($plxPlugin); ?>" method="post">
 	<fieldset>
 		<p>
 			<label for="id_folder"><?php echo $plxPlugin->lang('L_FOLDER') ?>&nbsp;:</label>

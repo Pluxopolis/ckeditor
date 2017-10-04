@@ -62,11 +62,11 @@ class ckeditor extends plxPlugin {
 	public function AdminTopBottom() {
 
 		$string = '
-		if($plxAdmin->plxPlugins->aPlugins["ckeditor"]->getParam("folder")=="") {
-			echo "<p class=\"warning\">Plugin ckEditor<br />'.$this->getLang("L_ERR_FOLDER_NOT_DEFINED").'</p>";
+		if($plxAdmin->plxPlugins->aPlugins["'.__CLASS__.'"]->getParam("folder")=="") {
+			echo "<p class=\"warning\">Plugin '.__CLASS__.'<br />'.$this->getLang("L_ERR_FOLDER_NOT_DEFINED").'</p>";
 			plxMsg::Display();
-		} elseif(!$plxAdmin->plxPlugins->aPlugins["ckeditor"]->valid_path) {
-			echo "<p class=\"warning\">Plugin ckEditor<br />'.$this->getLang("L_ERR_FOLDER_INVALID_DIR").'</p>";
+		} elseif(!$plxAdmin->plxPlugins->aPlugins["'.__CLASS__.'"]->valid_path) {
+			echo "<p class=\"warning\">Plugin '.__CLASS__.'<br />'.$this->getLang("L_ERR_FOLDER_INVALID_DIR").'</p>";
 			plxMsg::Display();
 		}';
 		echo '<?php '.$string.' ?>';
@@ -87,7 +87,7 @@ class ckeditor extends plxPlugin {
 			$_SESSION['FILEMAN_FILES_ROOT'] .= "/".$_SESSION['user'];
 		}
 
-		echo '<script src="'.PLX_PLUGINS.'ckeditor/ckeditor/ckeditor.js"></script>'."\n";
+		echo '<script src="'.PLX_PLUGINS.__CLASS__.'/ckeditor/ckeditor.js"></script>'."\n";
 		echo "<style>.cke_dialog_contents tr:hover { background-color: #fff; }</style>\n";
 	}
 
@@ -109,7 +109,7 @@ class ckeditor extends plxPlugin {
 <script>
 <!--
 if(typeof CKEDITOR != 'undefined') {
-	var roxyFileman = '<?php echo PLX_PLUGINS.__CLASS__ ?>/fileman/index.html?integration=ckeditor';
+	var roxyFileman = '<?php echo PLX_PLUGINS.__CLASS__ ?>/fileman/index.html?integration='.__CLASS__;
 	var textareas = document.getElementsByTagName("textarea");
 	for(var i=0;i<textareas.length;i++) {
 		var n = textareas[i].name;
