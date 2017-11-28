@@ -124,7 +124,8 @@ if(typeof CKEDITOR != 'undefined') {
 				removeDialogTabs: 'link:upload;image:upload',
 				entities: false,
 				allowedContent: true,
-				language : '<?php echo $this->default_lang ?>'
+				language: '<?php echo $this->default_lang ?>',
+				embed_provider : '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'	
 			});
 		}
 	}

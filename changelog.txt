@@ -1,3 +1,18 @@
+## Version 4.7.3 (28/11/2017) ##
+[+] Mise à jour ckeditor 4.7.3 standard et de ces plugins additionnels
+		Roxyfileman 1.4.5 http://www.roxyfileman.com/
+		Justify Plugin 4.7.3 http://ckeditor.com/addon/justify (justify)
+		Line Utilities 4.7.3 http://ckeditor.com/addon/lineutils (lineutils)
+		Media Embed 4.7.3 https://ckeditor.com/addon/embed (embed)
+		Media Embed Base 4.7.3 https://ckeditor.com/addon/embedbase (embedbase)
+		Notification 4.7.3 https://ckeditor.com/addon/notification (notification)
+		Notification Aggregator 4.7.3 https://ckeditor.com/addon/notificationaggregator (notificationaggregator)
+		Show Blocks 4.7.3 http://ckeditor.com/addon/showblocks (showblocks)
+		Widget 4.7.3 https://ckeditor.com/addon/widget (widget)
+		Widget Selection 4.7.3 https://ckeditor.com/addon/widgetselection (widgetselection)
+		
+https://ckeditor.com/addon/embed
+
 ## Version 4.6.2 (11/04/2017) ##
 [+] Mise à jour ckeditor 4.6.2
 [+] Remplacement du plugin Media (oEmbed) par le plugin officiel Media Embed (embed)
