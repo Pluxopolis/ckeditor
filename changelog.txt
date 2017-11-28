@@ -10,8 +10,7 @@
 		Show Blocks 4.7.3 http://ckeditor.com/addon/showblocks (showblocks)
 		Widget 4.7.3 https://ckeditor.com/addon/widget (widget)
 		Widget Selection 4.7.3 https://ckeditor.com/addon/widgetselection (widgetselection)
-		
-https://ckeditor.com/addon/embed
+FIX Various contributions by sudwebdesign
 
 ## Version 4.6.2 (11/04/2017) ##
 [+] Mise à jour ckeditor 4.6.2
