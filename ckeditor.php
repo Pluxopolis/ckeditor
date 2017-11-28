@@ -109,7 +109,7 @@ class ckeditor extends plxPlugin {
 <script>
 <!--
 if(typeof CKEDITOR != 'undefined') {
-	var roxyFileman = '<?php echo PLX_PLUGINS.__CLASS__ ?>/fileman/index.html?integration='.__CLASS__;
+	var roxyFileman = "<?php echo PLX_PLUGINS.__CLASS__.'/fileman/index.html?integration='.__CLASS__ ?>";
 	var textareas = document.getElementsByTagName("textarea");
 	for(var i=0;i<textareas.length;i++) {
 		var n = textareas[i].name;
